@@ -353,7 +353,7 @@ def blog_settings():
 def names():
     if request.method == 'POST':
         update_site()
-        return redirect(url_for('index'))
+        return 'Good'
     else:
         data = {
             "first_names": ["John", "Jacob", "Julie", "Jennifer", 1234],
