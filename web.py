@@ -430,7 +430,7 @@ def install():
 @app.before_request
 def csrf_protect():
     if request.method == "POST":
-        if not (request.headers.get('X-Hub-Signature') == 'sha1=59da038f93df4349c95e396af5068f3fddfe77a1' and request.script_root == '/json'):
+        if not validate_github(request.json == request.headers.get('X-Hub-Signature') and request.script_root == '/json'):
             token = session.pop('_csrf_token', None)
             if not token or token != request.form.get('_csrf_token'):
                 abort(400)

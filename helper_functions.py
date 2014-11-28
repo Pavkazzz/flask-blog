@@ -4,6 +4,8 @@ import random
 from urlparse import urljoin
 from flask import request, url_for, session, flash, redirect
 from functools import wraps
+import hashlib
+import hmac
 
 
 def url_for_other_page(page):
@@ -61,3 +63,13 @@ def logout_required():
             return f(*args, **kwargs)
         return wrapped
     return wrapper
+
+
+def _validate_signature(self, data):
+    sha_name, signature = self.headers['X-Hub-Signature'].split('=')
+    if sha_name != 'sha1':
+        return True
+
+    # HMAC requires its key to be bytes, but data is strings.
+    mac = hmac.new('pavka', msg=data, digestmod=hashlib.sha1)
+    return hmac.compare_digest(mac.hexdigest(), signature)
