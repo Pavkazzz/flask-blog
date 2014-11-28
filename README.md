@@ -2,42 +2,6 @@
 
 simple blog ~~engine~~ written on [Flask](http://flask.pocoo.org/)
 
-# Demo:
-you can try it [here](http://flask-blog-demo.herokuapp.com/)
-
-login:demo
-
-pass:demo
-
-# Under the hood:
-- [Python](http://python.org/)
-- [Flask](http://flask.pocoo.org/)
-- [MongoDB](http://www.mongodb.org/)
-- [Bootstrap 3](http://getbootstrap.com/)
-- [jQuery](http://jquery.com)
-- [Lightbox 2](https://github.com/lokesh/lightbox2)
-- [Markdown](http://daringfireball.net/projects/markdown/syntax)
-- [Polymer](http://www.polymer-project.org)
-
-
-# What it can:
-- create/preview/update/delete articles;
-- create/update/delete users;
-- search;
-- atom feed.
-
-# It contains:
-- WYSIWYG Markdown editor;
-- [AddThis](http://www.addthis.com/) social buttons;
-- [Gravatar](http://gravatar.com) for userpic.
-
-
-# To Do:
-- mongoDB text search
-- comments maybe
-- drafts
-
-
 # Installation:
 `git clone https://github.com/dmaslov/flask-blog.git`
 
@@ -118,7 +82,3 @@ The word will be replaced with a working gist tag.
 ~~To insert an image you also need to select a word that will be used like a title attribute and paste the image URL into the dialog window.~~
 
 ![insert_image](http://i.imgur.com/suxPgI0.png)
-
-
-# Upd:
-Don't need to highlight text to add a link or an image anymore. Now you can simply click some tag in the editor menu and put a link. The 'Markdown' tag will be created automatically with a highlighted temporary description. The existing pasting algorithm works as it did before.
