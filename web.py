@@ -12,7 +12,7 @@ import user
 import pagination
 import settings
 from helper_functions import *
-from fabric import update_site
+from fabfile import update_site
 
 
 app = Flask('FlaskBlog')
