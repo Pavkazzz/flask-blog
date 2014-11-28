@@ -348,12 +348,12 @@ def blog_settings():
                            error_type=error_type)
 
 
-@app.route('/json', methods=['GET', 'POST']))
+@app.route('/json', methods=['GET', 'POST'])
 def names():
     if request.method == 'POST':
-        f=request.form
+        f = request.form
         f.save('~/json.json')
-    data={
+    data = {
         "first_names": ["John", "Jacob", "Julie", "Jennifer"],
         "last_names": ["Connor", "Johnson", "Cloud", "Ray"]
     }
