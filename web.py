@@ -351,8 +351,8 @@ def blog_settings():
 @app.route('/json', methods=['GET', 'POST'])
 def names():
     data = {
-        "first_names": ["John", "Jacob", "Julie", "Jennifer"],
-        "last_names": ["Connor", "Johnson", "Cloud", "Ray"]
+        "first_names": ["John", "Jacob", "Julie", "Jennifer", 123],
+        "last_names": ["Connor", "Johnson", "Cloud", "Ray", 456]
     }
     return jsonify(data)
 
