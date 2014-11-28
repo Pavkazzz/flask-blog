@@ -7,7 +7,6 @@ code_dir = '/home/pavka'
 
 def update_site():
     #sudo('git pull')
-
     local('echo "ppppoi\n" |sudo git pull')
     local('echo "ppppoi\n" |supervisorctl restart flask - blog')
 
