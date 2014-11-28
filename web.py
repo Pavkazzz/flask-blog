@@ -12,6 +12,7 @@ import user
 import pagination
 import settings
 from helper_functions import *
+from fabric import update_site
 
 
 app = Flask('FlaskBlog')
@@ -350,11 +351,14 @@ def blog_settings():
 
 @app.route('/json', methods=['GET', 'POST'])
 def names():
-    data = {
-        "first_names": ["John", "Jacob", "Julie", "Jennifer", 123],
-        "last_names": ["Connor", "Johnson", "Cloud", "Ray", 456]
-    }
-    return jsonify(data)
+    if request.method == 'POST':
+        update_site()
+    else:
+        data = {
+            "first_names": ["John", "Jacob", "Julie", "Jennifer", 123],
+            "last_names": ["Connor", "Johnson", "Cloud", "Ray", 456]
+        }
+        return jsonify(data)
 
 
 @app.route('/install', methods=['GET', 'POST'])
