@@ -348,6 +348,15 @@ def blog_settings():
                            error_type=error_type)
 
 
+@app.route('/json')
+def names():
+    data = {
+        "first_names": ["John", "Jacob", "Julie", "Jennifer"],
+        "last_names": ["Connor", "Johnson", "Cloud", "Ray"]
+    }
+    return jsonify(data)
+
+
 @app.route('/install', methods=['GET', 'POST'])
 def install():
     if session.get('installed', None):
