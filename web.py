@@ -1,6 +1,6 @@
 import cgi
 import os
-from flask import Flask, render_template, abort, url_for, request, flash, session, redirect
+from flask import Flask, render_template, abort, url_for, request, flash, session, redirect, jsonify
 from flaskext.markdown import Markdown
 from mdx_github_gists import GitHubGistExtension
 from mdx_strike import StrikeExtension
@@ -350,9 +350,6 @@ def blog_settings():
 
 @app.route('/json', methods=['GET', 'POST'])
 def names():
-    if request.method == 'POST':
-        f = request.form
-        f.save('~/json.json')
     data = {
         "first_names": ["John", "Jacob", "Julie", "Jennifer"],
         "last_names": ["Connor", "Johnson", "Cloud", "Ray"]
