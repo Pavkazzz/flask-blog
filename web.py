@@ -355,8 +355,8 @@ def names():
         update_site()
     else:
         data = {
-            "first_names": ["John", "Jacob", "Julie", "Jennifer", 123],
-            "last_names": ["Connor", "Johnson", "Cloud", "Ray", 456]
+            "first_names": ["John", "Jacob", "Julie", "Jennifer", 1234],
+            "last_names": ["Connor", "Johnson", "Cloud", "Ray", 4567]
         }
         return jsonify(data)
 
