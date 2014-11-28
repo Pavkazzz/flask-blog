@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 .secret
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 # C extensions
 *.so
+=======
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+>>>>>>> 7b7e4327488a7c838690325561038dc6f7879ba2
 # Distribution / packaging
 .Python
 env/
@@ -20,6 +30,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+<<<<<<< HEAD
 # PyInstaller
 # Usually these files are written by a python script from a template
 # before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -28,6 +39,19 @@ var/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+=======
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+>>>>>>> 7b7e4327488a7c838690325561038dc6f7879ba2
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -35,6 +59,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+<<<<<<< HEAD
 # Translations
 *.mo
 *.pot
@@ -44,3 +69,18 @@ coverage.xml
 docs/_build/
 # PyBuilder
 target/
+=======
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+>>>>>>> 7b7e4327488a7c838690325561038dc6f7879ba2
