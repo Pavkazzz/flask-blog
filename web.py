@@ -353,7 +353,7 @@ def blog_settings():
 def names():
     if request.method == 'POST':
         update_site()
-        return 'Good'
+        return "ok"
     else:
         data = {
             "first_names": ["John", "Jacob", "Julie", "Jennifer", 1234],
