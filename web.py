@@ -430,10 +430,12 @@ def install():
 @app.before_request
 def csrf_protect():
     if request.method == "POST":
-        if not request.script_root == '/json':
+        if not request.path == '/json':
             token = session.pop('_csrf_token', None)
             if not token or token != request.form.get('_csrf_token'):
                 abort(400)
+        else:
+            return "Ok"
 
 
 @app.before_request
