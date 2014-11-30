@@ -298,16 +298,16 @@ def save_user():
         else:
             message = 'User updated!' if post_data['update'] else 'User added!'
             flash(message, 'success')
-    return redirect(url_for('index')
+    return redirect(url_for('index'))
 
 
 @app.route('/recent_feed')
 def recent_feed():
-    feed=AtomFeed(app.config['BLOG_TITLE'] + '::Recent Articles',
+    feed = AtomFeed(app.config['BLOG_TITLE'] + '::Recent Articles',
                     feed_url=request.url, url=request.url_root)
-    posts=postClass.get_posts(int(app.config['PER_PAGE']), 0)
+    posts = postClass.get_posts(int(app.config['PER_PAGE']), 0)
     for post in posts['data']:
-        post_entry=post['preview'] if post['preview'] else post['body']
+        post_entry = post['preview'] if post['preview'] else post['body']
         feed.add(post['title'], md(post_entry),
                  content_type='html',
                  author=post['author'],
@@ -320,22 +320,22 @@ def recent_feed():
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required()
 def blog_settings():
-    error=None
-    error_type='validate'
+    error = None
+    error_type = 'validate'
     if request.method == 'POST':
-        blog_data={
+        blog_data = {
             'title': request.form.get('blog-title', None),
             'description': request.form.get('blog-description', None),
             'per_page': request.form.get('blog-perpage', None),
             'text_search': request.form.get('blog-text-search', None)
         }
-        blog_data['text_search']=1 if blog_data['text_search'] else 0
+        blog_data['text_search'] = 1 if blog_data['text_search'] else 0
         for key, value in blog_data.items():
             if not value and key != 'text_search' and key != 'description':
-                error=True
+                error = True
                 break
         if not error:
-            update_result=settingsClass.update_settings(blog_data)
+            update_result = settingsClass.update_settings(blog_data)
             if update_result['error']:
                 flash(update_result['error'], 'error')
             else:
@@ -355,7 +355,7 @@ def names():
         update_site()
         return "ok"
     else:
-        data={
+        data = {
             "first_names": ["John", "Jacob", "Julie", "Jennifer", 1234],
             "last_names": ["Connor", "Johnson", "Cloud", "Ray", 4567]
         }
@@ -367,48 +367,48 @@ def install():
     if session.get('installed', None):
         return redirect(url_for('index'))
 
-    error=False
-    error_type='validate'
+    error = False
+    error_type = 'validate'
     if request.method == 'POST':
-        user_error=False
-        blog_error=False
+        user_error = False
+        blog_error = False
 
-        user_data={
+        user_data = {
             '_id': request.form.get('user-id', None).lower().strip(),
             'email': request.form.get('user-email', None),
             'new_pass': request.form.get('user-new-password', None),
             'new_pass_again': request.form.get('user-new-password-again', None),
             'update': False
         }
-        blog_data={
+        blog_data = {
             'title': request.form.get('blog-title', None),
             'description': request.form.get('blog-description', None),
             'per_page': request.form.get('blog-perpage', None),
             'text_search': request.form.get('blog-text-search', None)
         }
-        blog_data['text_search']=1 if blog_data['text_search'] else 0
+        blog_data['text_search'] = 1 if blog_data['text_search'] else 0
 
         for key, value in user_data.items():
             if not value and key != 'update':
-                user_error=True
+                user_error = True
                 break
         for key, value in blog_data.items():
             if not value and key != 'text_search' and key != 'description':
-                blog_error=True
+                blog_error = True
                 break
 
         if user_error or blog_error:
-            error=True
+            error = True
         else:
-            install_result=settingsClass.install(blog_data, user_data)
+            install_result = settingsClass.install(blog_data, user_data)
             if install_result['error']:
                 for i in install_result['error']:
                     if i is not None:
                         flash(i, 'error')
             else:
-                session['installed']=True
+                session['installed'] = True
                 flash('Successfully installed!', 'success')
-                user_login=userClass.login(
+                user_login = userClass.login(
                     user_data['_id'], user_data['new_pass'])
                 if user_login['error']:
                     flash(user_login['error'], 'error')
@@ -431,15 +431,15 @@ def install():
 def csrf_protect():
     if request.method == "POST":
         if not request.path == '/json':
-            token=session.pop('_csrf_token', None)
+            token = session.pop('_csrf_token', None)
             if not token or token != request.form.get('_csrf_token'):
                 abort(400)
 
 
 @app.before_request
 def is_installed():
-    app.config=settingsClass.get_config()
-    app.jinja_env.globals['meta_description']=app.config['BLOG_DESCRIPTION']
+    app.config = settingsClass.get_config()
+    app.jinja_env.globals['meta_description'] = app.config['BLOG_DESCRIPTION']
     if not session.get('installed', None):
         if url_for('static', filename='') not in request.path and request.path != url_for('install'):
             if not settingsClass.is_installed():
@@ -456,20 +456,20 @@ def format_datetime_filter(input_value, format_="%a, %d %b %Y"):
     return input_value.strftime(format_)
 
 
-settingsClass=settings.Settings(app.config)
-postClass=post.Post(app.config)
-userClass=user.User(app.config)
+settingsClass = settings.Settings(app.config)
+postClass = post.Post(app.config)
+userClass = user.User(app.config)
 
-app.jinja_env.globals['url_for_other_page']=url_for_other_page
-app.jinja_env.globals['csrf_token']=generate_csrf_token
-app.jinja_env.globals['meta_description']=app.config['BLOG_DESCRIPTION']
-app.jinja_env.globals['recent_posts']=postClass.get_posts(10, 0)['data']
-app.jinja_env.globals['tags']=postClass.get_tags()['data']
+app.jinja_env.globals['url_for_other_page'] = url_for_other_page
+app.jinja_env.globals['csrf_token'] = generate_csrf_token
+app.jinja_env.globals['meta_description'] = app.config['BLOG_DESCRIPTION']
+app.jinja_env.globals['recent_posts'] = postClass.get_posts(10, 0)['data']
+app.jinja_env.globals['tags'] = postClass.get_tags()['data']
 
 if not app.config['DEBUG']:
     import logging
     from logging import FileHandler
-    file_handler=FileHandler(app.config['LOG_FILE'])
+    file_handler = FileHandler(app.config['LOG_FILE'])
     file_handler.setLevel(logging.WARNING)
     app.logger.addHandler(file_handler)
 
