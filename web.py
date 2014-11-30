@@ -434,8 +434,6 @@ def csrf_protect():
             token = session.pop('_csrf_token', None)
             if not token or token != request.form.get('_csrf_token'):
                 abort(400)
-        else:
-            return "Ok"
 
 
 @app.before_request
