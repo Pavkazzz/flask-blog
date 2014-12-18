@@ -11,6 +11,7 @@ import post
 import user
 import pagination
 import settings
+import json
 from helper_functions import *
 from fabfile import update_site
 
@@ -21,7 +22,41 @@ md.register_extension(GitHubGistExtension)
 md.register_extension(StrikeExtension)
 md.register_extension(QuoteExtension)
 md.register_extension(MultilineCodeExtension)
+
+
 app.config.from_object('config')
+
+
+@app.route('/newmessage', methods=['POST'])
+def addmessage():
+    with open(app.config["CHAT"], 'r') as f:
+        messages = json.load(f)
+    print request.method
+    print request.form.get('username')
+    message = {
+        username: request.form.get('username'),
+        message: request.form.get('message'),
+        timestamp: time()
+    }
+    messages += message
+    with open(app.config["CHAT"], 'w') as f:
+        f.write(dumps(data))
+
+    return dumps(data)
+
+
+@app.route('/chat', methods=['GET'])
+def chat():
+
+    with open(app.config["CHAT"], 'r') as f:
+        messages = json.load(f)
+    counter = len(messages)
+    output = messages[:counter]
+    data = {
+        "counter": counter,
+        "output": output
+    }
+    return json.dumps(data)
 
 
 @app.route('/', defaults={'page': 1})

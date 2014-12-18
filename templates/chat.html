@@ -1,0 +1,30 @@
+<script defer src="{{ url_for('static', filename='js/chat.js') }}"></script> 
+<link href="{{ url_for('static', filename='css/chat.css') }}" rel="stylesheet" media="screen">
+<div id="test">
+    <diV>Окно чата. Сообщений нет.</div>
+</div>
+<textarea id="message" placeholder="Введите сообщение" rows="3" cols="22">
+</textarea><br>
+<input value="Отправить" id="send" type="button"> 
+<script type="text/javascript">
+$("#send").click(function(){
+
+        var input = $("#message");
+        if ($.trim(input.val())!=="") {
+            if (first) {
+                $("#test div:first").remove();
+                first = false;
+            }        
+            $.ajax({
+            type: "POST",
+            url: "newmessage",
+            data: {
+                "username": username,
+                "message": input.val()
+                }
+            }).done(function( msg ) {
+                input.val("");
+            });
+        }
+    });
+</script>

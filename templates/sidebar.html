@@ -17,18 +17,7 @@
     </ul>
     {%- endif -%}
 {% if session.user %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}"> 
-    <script defer src="{{ url_for('static', filename='js/jquery-2.1.1.js') }}"></script>
-    <script defer src="{{ url_for('static', filename='js/chat2.js') }}"></script> 
-    <!--<input id="username" type="text" placeholder="Введите ваш ник">
-    <input id="login" type="button" value="Войти">-->
-    <div id="test">
-        <diV>Окно чата. Сообщений нет.</div>
-    </div>
-    <textarea id="message" placeholder="Введите сообщение" rows="4" cols="22">
-    </textarea>
-    <br>
-    <input value="Отправить" id="send" type="button"> 
+    {% include 'chat.html' %}
 {% endif %} 
 </div>
 {%- endif -%}
