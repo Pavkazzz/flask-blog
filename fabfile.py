@@ -9,6 +9,7 @@ code_dir = '/home/pavka/flask-blog'
 def update_site():
     with cd(code_dir):
         sudo('git pull')
+        sudo('pip install requirments.txt')
         sudo('supervisorctl restart flask-blog')
 
 if __name__ == '__main__':

@@ -1,0 +1,11 @@
+div#test{
+	background-color: #eee;
+	height: auto;
+	width: 200px;
+}
+
+div#text div{
+	background-color: #eee;
+	height: auto;
+	width: 183px;
+}
