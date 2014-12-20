@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import cgi
 import os
 from flask import Flask, render_template, abort, url_for, request, flash, session, redirect, jsonify
@@ -12,8 +13,11 @@ import user
 import pagination
 import settings
 import json
+import time
+import markdown
 from helper_functions import *
 from fabfile import update_site
+from flask import Markup
 
 
 app = Flask('FlaskBlog')
@@ -27,36 +31,36 @@ md.register_extension(MultilineCodeExtension)
 app.config.from_object('config')
 
 
-@app.route('/newmessage', methods=['POST'])
-def addmessage():
-    with open(app.config["CHAT"], 'r') as f:
-        messages = json.load(f)
-    print request.method
-    print request.form.get('username')
-    message = {
-        username: request.form.get('username'),
-        message: request.form.get('message'),
-        timestamp: time()
-    }
-    messages += message
-    with open(app.config["CHAT"], 'w') as f:
-        f.write(dumps(data))
-
-    return dumps(data)
-
-
-@app.route('/chat', methods=['GET'])
+@app.route('/chat', methods=['GET', 'POST'])
 def chat():
-
     with open(app.config["CHAT"], 'r') as f:
         messages = json.load(f)
-    counter = len(messages)
-    output = messages[:counter]
-    data = {
-        "counter": counter,
-        "output": output
-    }
-    return json.dumps(data)
+    if request.method == 'POST':
+        message = dict()
+        message[unicode('username')] = request.form.get('username')
+        message[unicode('message')] = request.form.get('message')
+        message[unicode('timestamp')] = time.time()
+
+        messages.append(message)
+        with open(app.config["CHAT"], 'w') as f:
+            f.write(json.dumps(messages))
+        print json.dumps(messages)
+        return redirect('/')
+
+    else:
+        counter = len(messages)
+        output = messages[:counter]
+        data = {
+            "counter": counter,
+            "output": output
+        }
+        return json.dumps(data)
+
+
+@app.route('/cv')
+def cv():
+
+    return render_template('cv.html')
 
 
 @app.route('/', defaults={'page': 1})
@@ -465,7 +469,8 @@ def install():
 @app.before_request
 def csrf_protect():
     if request.method == "POST":
-        if not request.path == '/json':
+        print request.path
+        if not request.path in ['/chat', '/json']:
             token = session.pop('_csrf_token', None)
             if not token or token != request.form.get('_csrf_token'):
                 abort(400)

@@ -6,7 +6,7 @@ $("document").ready(function () {
 
     function t() {
         $.ajax({
-            type: "GET", 
+            type: "get", 
             url: "chat",
             data: {
                 "counter": counter
@@ -17,12 +17,13 @@ $("document").ready(function () {
             msg = $.parseJSON(msg);
             if (counter<msg.counter) {
                 counter = msg.counter;
+                $("#test").val("");
                 for (i = 0; i < msg.output.length; i++) {
                     if (first) {
                         $("#test div:first").remove();
                         first = false;
                     }
-                    div = $("<div>");
+                    div = $("<div class=\"removeMe\">");
 
                     div.text(
                         msg.output[i].username + ": " +
@@ -35,18 +36,22 @@ $("document").ready(function () {
         });
     }
     $("#send").click(function(){
-
         var input = $("#message");
-        if ($.trim(input.val())!=="") {        
+        if ($.trim(input.val())!=="") {
+            if (first) {
+                $("#test div:first").remove();
+                first = false;
+            }               
             $.ajax({
-            type: "POST",
-            url: "newmessage",
+            type: "post",
+            url: "chat",
             data: {
                 "username": username,
                 "message": input.val()
                 }
-            }).done(function( msg ) {
+            }).done(function(msg){
                 input.val("");
+                $('.removeMe').remove();
             });
         }
     });

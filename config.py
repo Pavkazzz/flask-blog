@@ -11,7 +11,7 @@ SECRET_KEY = ""
 basedir = os.path.abspath(os.path.dirname(__file__))
 secret_file = os.path.join(basedir, '.secret')
 CHAT = os.path.join(basedir, 'message.json')
-
+CV = os.path.join(basedir, 'aboutme.md')
 if os.path.exists(secret_file):
     # Read SECRET_KEY from .secret file
     f = open(secret_file, 'r')
