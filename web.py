@@ -56,6 +56,10 @@ def chat():
         }
         return json.dumps(data)
 
+@app.route('/presentation')
+def presentation():
+
+    return render_template('presentation.html')
 
 @app.route('/cv')
 def cv():
